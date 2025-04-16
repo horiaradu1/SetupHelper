@@ -1,0 +1,26 @@
+# Setup AMP from CubeCoders
+
+# https://cubecoders.com/AMP
+
+#############################################################
+# Install AMP
+
+sudo su -
+bash <(wget -qO- getamp.sh)
+
+# Follow instructions from installer
+
+bash <(wget -qO- getamp.sh) installJava
+
+#############################################################
+# Get Java and SteamCMD
+sudo apt install openjdk-17-jdk -y
+
+# SteamCMD and 32 bit libs
+sudo dpkg --add-architecture i386
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install lib32gcc-s1 libc6:i386 libstdc++6:i386 libtinfo6:i386 -y
+sudo apt install steamcmd -y
+
+#############################################################

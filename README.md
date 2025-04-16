@@ -1,3 +1,3 @@
-# SetupHelper
+# HomeLab Setup Helper
 
 ---

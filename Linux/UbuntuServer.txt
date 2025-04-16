@@ -1,0 +1,81 @@
+# Setup for Ubuntu Server OS
+
+# https://ubuntu.com/server
+
+#############################################################
+# BIOS:
+# Legacy Disable, Secure Boot Enable
+# Boot from Network Enable
+# After Power Loss ON
+# Fast Boot	Disable
+# TPM Spec Enable 2.0
+
+#############################################################
+# Update and upgrade
+
+sudo apt update -y
+sudo apt upgrade -y
+
+sudo fwupdmgr get-updates
+sudo fwupdmgr update
+sudo fwupdmgr upgrade
+
+#############################################################
+# Optional
+
+sudo apt install amdgpu
+sudo amdgpu-install
+
+sudo dpkg --add-architecture i386
+sudo apt update
+
+#############################################################
+# Setup wake-on-lan
+
+sudo apt install ethtool -y
+sudo apt install wakeonlan -y
+
+sudo nano /etc/systemd/system/wol@.service
+{
+  [Unit]
+  Description=Wake-on-LAN for %i
+  After=network.target
+
+  [Service]
+  Type=oneshot
+  ExecStart=/usr/sbin/ethtool -s %i wol g
+
+  [Install]
+  WantedBy=multi-user.target
+}
+sudo systemctl enable wol@{INTERFACE_NAME}.service
+sudo systemctl start wol@{INTERFACE_NAME}.service
+sudo ethtool {INTERFACE_NAME} # Check IP, MAC Address and Speed (Auto-negotiation should be on)
+
+#############################################################
+# Setup Webmin, Virtualmin or Cockpit
+#
+# Webmin: https://webmin.com/download/
+#
+# !!!!!!!!!!!!!!!
+# !! ATTENTION !! If you want Virtualmin install it directly, WITHOUT Webmin, and BEFORE any other packages or 3rd party apps (Nginx, Apache, SQL, SSL setup, etc)
+# !! Otherwise, it will mess with all the other packages and configs. For a fresh install, download and run install script from here: https://www.virtualmin.com/download/
+# !!!!!!!!!!!!!!!
+#
+# Alternative - Cockpit: https://cockpit-project.org/
+
+# Webmin instructions
+curl -o webmin-setup-repo.sh https://raw.githubusercontent.com/webmin/webmin/master/webmin-setup-repo.sh
+sh webmin-setup-repo.sh
+apt-get install webmin --install-recommends
+
+# Webmin will be here https://your-server-ip:10000
+
+#############################################################
+grep
+find
+vim
+less
+cat
+
+#############################################################

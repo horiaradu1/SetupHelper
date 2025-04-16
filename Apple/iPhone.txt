@@ -1,0 +1,14 @@
+# Setup for iPhone to link to HomeLab
+
+#############################################################
+
+- Terminus                https://apps.apple.com/us/app/termius-modern-ssh-client/id549039908
+- Easy WOL                https://apps.apple.com/us/app/easy-wol-wake-on-lan/id1659282198
+- Windows App Mobile      https://apps.apple.com/us/app/windows-app-mobile/id714464092
+- Speedtest by Ookla      https://apps.apple.com/ro/app/speedtest-by-ookla/id300704847?l=ro
+- Fing - Network Scanner  https://apps.apple.com/us/app/fing-network-scanner/id430921107
+- SmartThings (Samsung)   https://apps.apple.com/us/app/smartthings/id1222822904
+- Shelly Smart Control    https://apps.apple.com/us/app/shelly-smart-control/id1660045967
+- Google Home             https://apps.apple.com/us/app/google-home/id680819774
+
+#############################################################

@@ -1,0 +1,89 @@
+# Setup for Windows 11 Home PC
+
+# https://www.microsoft.com/en-us/software-download/windows11
+
+#############################################################
+# OpenSSH Client and OpenSSH Server
+
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+
+Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+
+Start-Service sshd
+Set-Service -Name sshd -StartupType 'Automatic'
+Restart-Service sshd
+
+# Optional - allow firewall access to Private and/or Public
+
+# Optional - Enable Remote Desktop Access
+
+# CONFIG - C:\ProgramData\ssh
+
+# Recommended - use SSH Key Authentication
+# C:\Users\{USER}\.ssh\authorized_keys
+ssh-keygen
+
+#############################################################
+# Wake-on-LAN
+
+# For wake-on-LAN ON this PC: https://www.nirsoft.net/utils/wake_on_lan.html
+# For wake-on-LAN TO this PC:
+# - Enable Network Boot in BIOS
+# - Disable Windows Fast Startup
+# - Get MAC Address to use on other device
+ipconfig /all
+
+#############################################################
+# Drivers:
+# - ASUS DriverHub - or any other drivers for the motherboard
+# - NVIDIA App https://www.nvidia.com/en-us/software/nvidia-app/
+# - AMD Software https://www.amd.com/en/support/download/drivers.html
+# - GPU Tweak III / MSI Afterburner
+# - Armoury Crate (AURA Sync)
+# - iCUE
+# - SignalRgb
+
+#############################################################
+# System info and monitor:
+# - CPUID - CPU-Z https://www.cpuid.com/softwares/cpu-z.html
+# - TechPowerUp GPU-Z https://www.techpowerup.com/gpuz/
+# - HWiNFO https://www.hwinfo.com/
+
+#############################################################
+# Benchmark:
+# - 3DMark https://www.3dmark.com/
+# - Cinebench https://www.maxon.net/en/cinebench
+# - FurMark https://geeks3d.com/furmark/
+
+#############################################################
+# Apps:
+# - Google Chrome https://www.google.com/chrome
+# - Spotify https://www.spotify.com/download/windows/
+# - Discord https://discord.com/
+# - Steam https://store.steampowered.com/
+# - GOG Galaxy, Epic Games Launcher, Ubisoft Connect, EA, Rockstar Games Launcher
+# - Logitech G HUB https://www.logitechg.com/en-us/innovation/g-hub.html
+# - TranslucentTB - Microsoft Store / https://translucenttb.com/
+# - Wallpaper Engine - Steam / https://www.wallpaperengine.io/
+# - Microsoft PowerToys - Microsoft Store / https://learn.microsoft.com/en-us/windows/powertoys
+
+#############################################################
+# Dev Tools:
+# - Terminal
+# - PowerShell 7
+# - WinSCP
+# - PuTTY
+# - WinMerge
+# - Git (https://git-scm.com/downloads)
+# - Atom, Visual Studio, Visual Studio Code
+# - Virtual Machine (VirtualBox)
+
+#############################################################
+# Miscellaneous:
+# - uTorrent
+# - Cheat Engine
+# - balenaEtcher
+# - GSyncTrayToggle https://github.com/horiaradu1/GSyncTrayToggle with Start on startup script
+
+#############################################################

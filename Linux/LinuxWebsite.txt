@@ -1,0 +1,65 @@
+# Setup for Website on Linux
+
+
+#############################################################
+# Get a domain
+
+# Cloudflare: https://www.cloudflare.com/products/registrar/
+
+# Set a DNS Record to point to your server public IP address
+# https://dash.cloudflare.com/
+# https://whatismyipaddress.com
+curl https://ipinfo.io/ip
+
+#############################################################
+# Open ports 80 and 443 to server local IP address
+# TCP Protocol
+ip a # To get local IP
+
+#############################################################
+
+sudo apt install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+sudo systemctl status nginx
+
+# Optional plugin for Webmin nginx: https://www.webmin.com/cgi-bin/search_third.cgi?search=nginx
+sudo apt install libhtml-parser-perl # Needed for the plugin
+
+#############################################################
+# Optional - Enable HTTPS
+
+# Let's Encrypt via Certbot (Python)
+# https://certbot.eff.org/
+
+sudo apt install certbot
+# sudo apt install python3-certbot-nginx
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot --nginx
+sudo certbot show_account
+
+#############################################################
+# Recommended - set up a custom web root folder (Same steps to create new sites on other domains/subdomains)
+
+sudo mkdir -p /var/www/{WEBSITE_NAME}
+sudo chown -R $USER:$USER /var/www/{WEBSITE_NAME}
+echo '<h1>Hello world</h1>' > /var/www/{WEBSITE_NAME}/index.html
+
+# Edit site config to match new root folder
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/{WEBSITE_NAME}
+sudo nano /etc/nginx/sites-available/{WEBSITE_NAME}
+
+# Enable {WEBSITE_NAME} and disable default
+sudo ln -s /etc/nginx/sites-available/{WEBSITE_NAME} /etc/nginx/sites-enabled/
+sudo rm /etc/nginx/sites-enabled/default
+
+# Update certificate (Optional)
+sudo certbot --nginx
+# OR
+sudo certbot --nginx -d {WEBSITE_NAME/NEW_DOMAIN}
+
+# Test config and reload
+sudo nginx -t
+sudo systemctl reload nginx
+
+#############################################################
